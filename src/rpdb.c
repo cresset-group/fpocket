@@ -424,7 +424,7 @@ int element_in_kept_res(char *res_name)
 void guess_element(char *aname, char *element, char *res_name)
 {
     /* Use a temporary variable for atomname, mainly to remove spaces */
-    char tmp[strlen(aname) + 1];
+    char *tmp = my_malloc(sizeof(char) * (strlen(aname) + 1));
     strcpy(tmp, aname);
 
     str_trim(tmp);
@@ -444,6 +444,7 @@ void guess_element(char *aname, char *element, char *res_name)
             element[0] = ptmp[0];
             element[1] = '\0';
             //element[2] = '\0';
+            my_free(tmp);
             return;
         }
     }
@@ -455,6 +456,7 @@ void guess_element(char *aname, char *element, char *res_name)
             element[0] = ptmp[0];
             element[1] = '\0';
             //element[2] = '\0';
+            my_free(tmp);
             return;
         }
     }
@@ -464,6 +466,7 @@ void guess_element(char *aname, char *element, char *res_name)
         if (index != -1)
         {
             strcpy(element, ptmp);
+            my_free(tmp);
             return;
         }
     }
@@ -471,6 +474,7 @@ void guess_element(char *aname, char *element, char *res_name)
     element[0] = ptmp[0];
     element[1] = ptmp[1];
     element[2] = '\0';
+    my_free(tmp);
 }
 
 int is_N(char *aname)

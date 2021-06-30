@@ -33,8 +33,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 */
 
-
-
+#ifdef _WIN32
+const char sep = '\\';
+#else
+const char sep = '/';
+#endif
 
 static int ST_is_rand_init = 0 ; /**< Says wether we have seeded the generator. */
 
@@ -553,7 +556,7 @@ void extract_path(char *str, char *dest)
 	
 	while(*pstr) {
 	/* Advance in the path name while it is possible */
-		if(*pstr == '/') {
+		if(*pstr == sep) {
 		/* If we encounter a '/', save its position */
 			last_backsl = pstr ;
 		}
@@ -633,7 +636,7 @@ void remove_path(char *str)
 	
 	while(*pstr) {
 	/* Advance in the path name while it is possible */
-		if(*pstr == '/') {
+		if(*pstr == sep) {
 		/* If we encounter a '/', save its position */
 			last_backsl = pstr ;
 		}

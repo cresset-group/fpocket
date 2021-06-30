@@ -39,9 +39,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
  */
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+ 
+#define nchar_max 255
+
 double frand_a_b(double a, double b)
 {
     return (rand() / (double)RAND_MAX) * (b - a) + a;
+}
+
+int writeTempDir(char* dir, int size)
+{
+#ifdef _WIN32
+	return GetTempPathA(size, dir);
+#else
+	return sprintf(dir, "/tmp/");
+#endif
 }
 
 /**
@@ -69,18 +84,23 @@ double frand_a_b(double a, double b)
 s_lst_vvertice *load_vvertices_DEPRECATED(s_pdb *pdb, int min_apol_neigh, float asph_min_size, float asph_max_size, float xshift, float yshift, float zshift)
 {
     int i,
-        nb_h = 0;
+        nb_h = 0,
+		len = 0;
 
     s_atm *ca = NULL;
     s_lst_vvertice *lvvert = NULL;
 
-    char tmpn1[250] = "";
-    char tmpn2[250] = "";
+    char tmpn1[nchar_max] = "";
+    char tmpn2[nchar_max] = "";
 
     pid_t pid = getpid();
 
-    sprintf(tmpn1, "/tmp/qvoro_in_fpocket_%d.dat", pid);
-    sprintf(tmpn2, "/tmp/qvoro_out_fpocket_%d.dat", pid);
+	len = writeTempDir(tmpn1, nchar_max);
+    sprintf(tmpn1+len, "qvoro_in_fpocket_%d.dat", pid);
+
+	len = writeTempDir(tmpn2, nchar_max);
+    sprintf(tmpn2+len, "qvoro_out_fpocket_%d.dat", pid);
+
     printf(tmpn1);
 
     srand(time(NULL));
@@ -182,18 +202,23 @@ s_lst_vvertice *load_vvertices_DEPRECATED(s_pdb *pdb, int min_apol_neigh, float 
 s_lst_vvertice *load_vvertices(s_pdb *pdb, int min_apol_neigh, float asph_min_size, float asph_max_size, float xshift, float yshift, float zshift)
 {
     int i, j,
-        nb_h = 0;
+        nb_h = 0,
+		len = 0;
 
     s_atm *ca = NULL;
     s_lst_vvertice *lvvert = NULL;
 
-    char tmpn1[250] = "";
-    char tmpn2[250] = "";
+    char tmpn1[nchar_max] = "";
+    char tmpn2[nchar_max] = "";
 
     pid_t pid = getpid();
 
-    sprintf(tmpn1, "/tmp/qvoro_in_fpocket_%d.dat", pid);
-    sprintf(tmpn2, "/tmp/qvoro_out_fpocket_%d.dat", pid);
+	len = writeTempDir(tmpn1, nchar_max);
+    sprintf(tmpn1 + len, "qvoro_in_fpocket_%d.dat", pid);
+
+	len = writeTempDir(tmpn2, nchar_max);
+    sprintf(tmpn2 + len, "qvoro_out_fpocket_%d.dat", pid);
+
     //    fprintf(stdout, tmpn1);
     /*fflush(stdout);*/
 
@@ -520,9 +545,8 @@ void fill_vvertices(s_lst_vvertice *lvvert, const char fpath[], s_atm *atoms, in
     float tmpRadius; /* Temporary Ray of voronoi vertice (ray of alpha sphere) */
     float xyz[3] = {0, 0, 0};
 
-    int i, j, nchar_max = 255,
-              vInMem = 0, /* Saved vertices counter */
-        tmpApolar = 0,
+    int i, j, vInMem = 0, /* Saved vertices counter */
+              tmpApolar = 0,
               curNbIdx[4]; /* Current atomic neighbours curVnbIdx[4],  Current vertice neighbours */
 
     char cline[nchar_max],
@@ -696,12 +720,11 @@ void add_missing_vvertices(s_lst_vvertice *lvvert, const char fpath[], s_atm *at
     float tmpRadius; /* Temporary radius of voronoi vertice (ray of alpha sphere) */
     float xyz[3] = {0, 0, 0};
 
-    int j, nchar_max = 255,
-           curLineNb = 0, /* Current line number */
-        trash = 0,
+    int j, curLineNb = 0, /* Current line number */
+           trash = 0,
            tmpApolar = 0,
            curVnbIdx[4], /* Current vertice neighbours */
-        curNbIdx[4];     /* Current atomic neighbours */
+           curNbIdx[4];     /* Current atomic neighbours */
 
     char cline[nchar_max],
         nbline[nchar_max],
@@ -1315,17 +1338,21 @@ float get_verts_volume_ptr(s_vvertice **verts, int nvert, int niter, float corre
 
 float get_convex_hull_volume(s_vvertice **verts, int nvert)
 {
-    int i;
+    int i, len = 0;
     s_vvertice *vcur = NULL;
-    char tmpn1[250] = "";
-    char tmpn2[250] = "";
+    char tmpn1[nchar_max] = "";
+    char tmpn2[nchar_max] = "";
     pid_t pid = getpid();
-    int nchar_max = 255;
     char cline[nchar_max];
     if (nvert < 10)
         return (0.0);
-    sprintf(tmpn1, "/tmp/qhull_in_fpocket_%d.dat", pid);
-    sprintf(tmpn2, "/tmp/qhull_out_fpocket_%d.dat", pid);
+
+	len = writeTempDir(tmpn1, nchar_max);
+    sprintf(tmpn1 + len, "qhull_in_fpocket_%d.dat", pid);
+
+	len = writeTempDir(tmpn2, nchar_max);
+    sprintf(tmpn2 + len, "qhull_out_fpocket_%d.dat", pid);
+
     FILE *ftmp = fopen(tmpn2, "w");
     FILE *fvoro = fopen(tmpn1, "w+");
     /* Write the header for qvoronoi */
