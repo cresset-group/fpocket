@@ -92,7 +92,7 @@ c_lst_pockets *apply_clustering(c_lst_pockets *pockets, s_fparams *params, s_lst
 			pcur = pcur->next;
 		}
 	}
-	int mem_table[max_resid+1];
+	int *mem_table = my_malloc(sizeof(int) * max_resid+1);
 
 	for(int i=0; i<=max_resid; i++){
 		mem_table[i]=-1;
@@ -186,6 +186,8 @@ c_lst_pockets *apply_clustering(c_lst_pockets *pockets, s_fparams *params, s_lst
 		p = p->next ;
 	}
 
+    my_free(mem_table);
+    
 	if(pockets1->n_pockets > 0){
 		return pockets1;
 	}
@@ -295,7 +297,7 @@ c_lst_pockets *assign_apply_clustering( s_fparams *params, s_lst_vvertice *lvert
 			max_resid = cur_resid;
 		}
 	}
-	int mem_table[max_resid+1];
+	int *mem_table = my_malloc(sizeof(int) * max_resid+1);
 	for(int i=0; i<=max_resid; i++){
 		mem_table[i]=-1;
 	}
@@ -373,6 +375,9 @@ c_lst_pockets *assign_apply_clustering( s_fparams *params, s_lst_vvertice *lvert
         my_free(mergedPockets[i]);
 	}
 	my_free(mergedPockets);
+    
+    my_free(mem_table);
+    
 	if(pockets->n_pockets > 0){
 		return pockets;
 	}

@@ -77,9 +77,15 @@ void test_fpocket(s_tparams *par)
 	int n1, n2, n3, n4, n5, n6, N = 0 ;
 
 	/* Store statistics for each files: */
-	int status[par->nfiles] ;
-	float ddata [par->nfiles][M_NDDATA];
-	int idata [par->nfiles][M_NIDATA];
+	int *status = my_malloc(sizeof(int) * par->nfiles) ;
+    
+	float **ddata = my_malloc(sizeof(float*) * par->nfiles);
+    for (int i=0; i<par->nfiles; i++)
+        ddata[i] = my_malloc(sizeof(float) * M_NDDATA);
+    
+	int **idata = my_malloc(sizeof(int*) * par->nfiles);
+    for (int i=0; i<par->nfiles; i++)
+        idata[i] = my_malloc(sizeof(int) * M_NDDATA);
 
 	/* Test all files */
 	for(i = 0 ; i < par->nfiles ; i++) {
@@ -391,6 +397,16 @@ void test_fpocket(s_tparams *par)
 		fclose(fg) ;
 	}
 	else fprintf(stdout, "The file %s could not be opened\n", par->g_output) ;
+    
+    my_free(status);
+    
+    for (int i=0; i<par->nfiles; i++)
+        my_free(ddata[i]);
+    my_free(ddata);
+    
+    for (int i=0; i<par->nfiles; i++)
+        my_free(idata[i]);
+    my_free(idata);
 }
 
 /**

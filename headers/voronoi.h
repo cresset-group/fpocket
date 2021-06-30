@@ -20,13 +20,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include <string.h>
 #include <ctype.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <time.h>
 #include "rpdb.h"
 #include "writepdb.h"
 #include "calc.h"
 #include "utils.h"
 
+#ifdef _WIN32
+#include <process.h>
+#define pid_t int
+#else
+#include <unistd.h>
+#endif
 
 #include "../src/qhull/src//qvoronoi/qvoronoi.h"
 #include "../src/qhull/src/qconvex/qconvex.h"

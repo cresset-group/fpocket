@@ -38,6 +38,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ##
 
  */
+ 
+ #define nchar_max 255
 
 double frand_a_b(double a, double b)
 {
@@ -520,9 +522,8 @@ void fill_vvertices(s_lst_vvertice *lvvert, const char fpath[], s_atm *atoms, in
     float tmpRadius; /* Temporary Ray of voronoi vertice (ray of alpha sphere) */
     float xyz[3] = {0, 0, 0};
 
-    int i, j, nchar_max = 255,
-              vInMem = 0, /* Saved vertices counter */
-        tmpApolar = 0,
+    int i, j, vInMem = 0, /* Saved vertices counter */
+              tmpApolar = 0,
               curNbIdx[4]; /* Current atomic neighbours curVnbIdx[4],  Current vertice neighbours */
 
     char cline[nchar_max],
@@ -696,12 +697,11 @@ void add_missing_vvertices(s_lst_vvertice *lvvert, const char fpath[], s_atm *at
     float tmpRadius; /* Temporary radius of voronoi vertice (ray of alpha sphere) */
     float xyz[3] = {0, 0, 0};
 
-    int j, nchar_max = 255,
-           curLineNb = 0, /* Current line number */
-        trash = 0,
+    int j, curLineNb = 0, /* Current line number */
+           trash = 0,
            tmpApolar = 0,
            curVnbIdx[4], /* Current vertice neighbours */
-        curNbIdx[4];     /* Current atomic neighbours */
+           curNbIdx[4];     /* Current atomic neighbours */
 
     char cline[nchar_max],
         nbline[nchar_max],
@@ -1320,7 +1320,6 @@ float get_convex_hull_volume(s_vvertice **verts, int nvert)
     char tmpn1[250] = "";
     char tmpn2[250] = "";
     pid_t pid = getpid();
-    int nchar_max = 255;
     char cline[nchar_max];
     if (nvert < 10)
         return (0.0);

@@ -1290,7 +1290,7 @@ s_atm** get_pocket_contacted_atms(s_pocket *pocket, int *natoms)
 	
 	if(pocket && pocket->v_lst && pocket->v_lst->n_vertices > 0) {
 	/* Remember atoms already stored. */
-		int atm_ids[pocket->v_lst->n_vertices * 4] ;
+		int *atm_ids = my_malloc(sizeof(int) * pocket->v_lst->n_vertices * 4) ;
 
 	/* Do the search  */
 		catoms = (s_atm **)my_malloc(actual_size*sizeof(s_atm*)) ;
@@ -1312,6 +1312,8 @@ s_atm** get_pocket_contacted_atms(s_pocket *pocket, int *natoms)
 			}
 			nvcur = nvcur->next ;
 		}
+        
+        my_free(atm_ids);
 	}
 
 	*natoms = nb_atoms ;
@@ -1344,7 +1346,7 @@ int count_pocket_contacted_atms(s_pocket *pocket)
 	s_vvertice *vcur = NULL ;
 
 	/* Remember atoms already stored. */
-	int atm_ids[pocket->v_lst->n_vertices * 4] ;
+	int *atm_ids = my_malloc(sizeof(int) * pocket->v_lst->n_vertices * 4) ;
 
 	/* Do the search  */
 	nvcur = pocket->v_lst->first ;
@@ -1359,6 +1361,8 @@ int count_pocket_contacted_atms(s_pocket *pocket)
 		}
 		nvcur = nvcur->next ;
 	}
+    
+    my_free(atm_ids);
 
 	return nb_atoms ;
 }

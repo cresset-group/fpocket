@@ -89,7 +89,7 @@ s_pdb *open_mmcif(char *fpath, const char *ligan, const int keep_lig, int model_
         {
             if (at_in[i].altloc[0] == '.')
                 at_in[i].altloc[0] = ' ';
-            if (!strncmp(at_in[i].atom_type, "ATOM", 4) && !is_ligand(par->chain_as_ligand,at_in[i].chain[0]))
+            if (!strncmp(at_in[i].type, "ATOM", 4) && !is_ligand(par->chain_as_ligand,at_in[i].chain[0]))
             {
                 if (at_in[i].altloc[0] == ' ' || at_in[i].altloc[0] == 'A')
                 {
@@ -141,7 +141,7 @@ s_pdb *open_mmcif(char *fpath, const char *ligan, const int keep_lig, int model_
                     }
                 }
             }
-            else if (!strncmp(at_in[i].atom_type, "HETATM", 6) || (!strncmp(at_in[i].atom_type, "ATOM", 4) && is_ligand(par->chain_as_ligand,at_in[i].chain[0])))
+            else if (!strncmp(at_in[i].type, "HETATM", 6) || (!strncmp(at_in[i].type, "ATOM", 4) && is_ligand(par->chain_as_ligand,at_in[i].chain[0])))
             {
 
                 if (at_in[i].altloc[0] == ' ' || at_in[i].altloc[0] == 'A')
@@ -299,7 +299,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
         if (model_flag == 0 || model_read == 1)
         {
             //printf("%c \n",at_in[i].altloc[0]);
-            if (!strncmp(at_in[i].atom_type, "ATOM", 4) && !is_ligand(params->chain_as_ligand,at_in[i].chain[0]))
+            if (!strncmp(at_in[i].type, "ATOM", 4) && !is_ligand(params->chain_as_ligand,at_in[i].chain[0]))
             {
                 //printf("TYPE : %s ` %d \n",at_in[i].name,i );
                 //printf("%c \n",at_in[i].altloc[0]); /* column 16 check for configuration of the residue e.g A,B */
@@ -336,7 +336,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                             {
                                 atom = atoms + iatoms;
 
-                                strcpy(atom->type, at_in[i].atom_type);
+                                strcpy(atom->type, at_in[i].type);
                                 atom->id = i + 1;
                                 strcpy(atom->name, at_in[i].type);
                                 atom->pdb_aloc = at_in[i].altloc[0];
@@ -373,7 +373,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
 
                                 atom = atoms + iatoms;
 
-                                strcpy(atom->type, at_in[i].atom_type);
+                                strcpy(atom->type, at_in[i].type);
                                 atom->id = i + 1;
                                 strcpy(atom->name, at_in[i].type);
                                 atom->pdb_aloc = at_in[i].altloc[0];
@@ -417,7 +417,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                             /* A simple atom not supposed to be stored as a ligand */
 
                             atom = atoms + iatoms;
-                            strcpy(atom->type, at_in[i].atom_type);
+                            strcpy(atom->type, at_in[i].type);
                             atom->id = i + 1;
                             strcpy(atom->name, at_in[i].type);
                             atom->pdb_aloc = at_in[i].altloc[0];
@@ -455,12 +455,12 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                     }
                 }
             }
-            else if (!strncmp(at_in[i].atom_type, "HETATM", 6) || (!strncmp(at_in[i].atom_type, "ATOM", 4) && is_ligand(params->chain_as_ligand,at_in[i].chain[0])))
+            else if (!strncmp(at_in[i].type, "HETATM", 6) || (!strncmp(at_in[i].type, "ATOM", 4) && is_ligand(params->chain_as_ligand,at_in[i].chain[0])))
             {
 
                 if (at_in[i].altloc[0] == ' ' || at_in[i].altloc[0] == 'A')
                 { /*first occurence*/
-                    //printf("ATOM TYPE: %s",at_in[i].atom_type);
+                    //printf("ATOM TYPE: %s",at_in[i].type);
                     if (pdb->n_xlig_atoms)
                     {
                         if (at_in[i].chain[0] == params->xlig_chain_code[0] && at_in[i].resid == params->xlig_resnumber && params->xlig_resname[0] == at_in[i].resname[0] && params->xlig_resname[1] == at_in[i].resname[1] && params->xlig_resname[2] == at_in[i].resname[2])
@@ -491,7 +491,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                         if (ligan && strlen(ligan) > 1 && keep_lig && ligan[0] == at_in[i].resname[0] && ligan[1] == at_in[i].resname[1] && ligan[2] == at_in[i].resname[2])
                         {
                             atom = atoms + iatoms;
-                            strcpy(atom->type, at_in[i].atom_type);
+                            strcpy(atom->type, at_in[i].type);
 
                             atom->id = i + 1;
                             strcpy(atom->name, at_in[i].type);
@@ -528,7 +528,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                             {
 
                                 atom = atoms + iatoms;
-                                strcpy(atom->type, at_in[i].atom_type);
+                                strcpy(atom->type, at_in[i].type);
 
                                 atom->id = i + 1;
                                 strcpy(atom->name, at_in[i].type);
@@ -567,7 +567,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                             {
 
                                 atom = atoms + iatoms;
-                                strcpy(atom->type, at_in[i].atom_type);
+                                strcpy(atom->type, at_in[i].type);
                                 atom->id = i + 1;
                                 strcpy(atom->name, at_in[i].type);
                                 atom->pdb_aloc = at_in[i].altloc[0];
@@ -604,7 +604,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
 
                                         atom = atoms + iatoms;
 
-                                        strcpy(atom->type, at_in[i].atom_type);
+                                        strcpy(atom->type, at_in[i].type);
 
                                         atom->id = i + 1;
                                         strcpy(atom->name, at_in[i].type);
@@ -640,14 +640,14 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
                     }
                 }
             }
-            else if (strncmp(at_in[i].atom_type, "CRYST1", 6) == 0)
+            else if (strncmp(at_in[i].type, "CRYST1", 6) == 0)
             {
                 rpdb_extract_cryst1(pdb_line, &(pdb->alpha), &(pdb->beta), &(pdb->gamma),
                                     &(pdb->A), &(pdb->B), &(pdb->C));
             }
-            else if (model_read == 1 && !strncmp(at_in[i].atom_type, "ENDMDL", 6))
+            else if (model_read == 1 && !strncmp(at_in[i].type, "ENDMDL", 6))
                 model_read = 0;
-            else if (model_number == 0 && !strncmp(at_in[i].atom_type, "END ", 3))
+            else if (model_number == 0 && !strncmp(at_in[i].type, "END ", 3))
                 break;
         }
     }
@@ -707,7 +707,7 @@ void print_molfile_atom_t(molfile_atom_t *at_in, molfile_timestep_t ts_in, int i
     {
         printf("%d## ", j);
         printf("%f|%f|%f\n", ts_in.coords[3 * j], ts_in.coords[3 * j + 1], ts_in.coords[3 * j + 2]);
-        printf("atom TYPE :%s\t", at_in[j].atom_type);
+        printf("atom TYPE :%s\t", at_in[j].type);
         printf("name : %s\t", at_in[j].name);
         printf("type : %s\t", at_in[j].type);
         printf("resname : %s\t", at_in[j].resname);

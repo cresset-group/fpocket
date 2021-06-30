@@ -102,15 +102,15 @@ int check_fpocket (void)
 	fprintf(stdout, "OK \n") ;
 	
 	fprintf(stdout, "    OPENING PDB FILE................ ") ;
-	s_pdb *pdb =  rpdb_open(params->pdb_path, NULL, M_DONT_KEEP_LIG, 0) ;
-        s_pdb *pdb_w_lig =  rpdb_open(params->pdb_path, NULL, M_KEEP_LIG, 0) ;
+	s_pdb *pdb =  rpdb_open(params->pdb_path, NULL, M_DONT_KEEP_LIG, 0, params) ;
+        s_pdb *pdb_w_lig =  rpdb_open(params->pdb_path, NULL, M_KEEP_LIG, 0, params) ;
 
 	if(pdb) {
 		/* Actual reading of pdb data and then calculation */
 			fprintf(stdout, "OK \n") ;
 			fprintf(stdout, "    READING PDB FILE ............... ") ;
-			rpdb_read(pdb, NULL, M_DONT_KEEP_LIG, 0) ;
-                        rpdb_read(pdb_w_lig, NULL, M_KEEP_LIG, 0) ;
+			rpdb_read(pdb, NULL, M_DONT_KEEP_LIG, 0, params) ;
+            rpdb_read(pdb_w_lig, NULL, M_KEEP_LIG, 0, params) ;
 			fprintf(stdout, "OK \n") ;
 
 			fprintf(stdout, "    RUNNING FPOCKET ................ ") ;

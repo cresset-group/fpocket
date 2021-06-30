@@ -79,7 +79,7 @@ static const char atomSiteHeader[] =
 
 void write_each_pocket_for_DB(const char out_path[], c_lst_pockets *pockets, s_pdb *pdb) {
     int out_len = strlen(out_path);
-    char out[out_len + 20];
+    char *out = my_malloc(sizeof(char) * out_len + 20);
     out[0] = '\0';
 
     node_pocket *pcur;
@@ -105,6 +105,8 @@ void write_each_pocket_for_DB(const char out_path[], c_lst_pockets *pockets, s_p
     } else {
         fprintf(stderr, "! The file %s could not be opened!\n", out);
     }
+    
+    my_free(out);
 }
 
 void write_pocket_pqr_DB(const char out[], s_pocket *pocket) {
@@ -480,7 +482,7 @@ void write_mdpockets_concat_pqr(FILE *f, c_lst_pockets *pockets) {
  */
 void write_each_pocket(const char out_path[], c_lst_pockets *pockets) {
     int out_len = strlen(out_path);
-    char out[out_len + 20];
+    char *out = my_malloc(sizeof(char) * out_len + 20);
     out[0] = '\0';
 
     node_pocket *pcur;
@@ -509,6 +511,8 @@ void write_each_pocket(const char out_path[], c_lst_pockets *pockets) {
     } else {
         fprintf(stderr, "! The file %s could not be opened!\n", out);
     }
+    
+    my_free(out);
 }
 
 /**

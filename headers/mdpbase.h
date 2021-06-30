@@ -14,12 +14,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
 #include <assert.h>
 #include <math.h>
+
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 
 #include "fpocket.h"
 #include "fpout.h"

@@ -355,12 +355,12 @@ int countResidues(s_atm *atoms, int natoms, char chain[2]){
 */
 void set_atom_based_descriptors(s_atm **atoms, int natoms, s_desc *desc,s_atm *all_atoms, int all_natoms)
 {
+    int *res_ids = my_malloc(sizeof(int) * natoms);	/* Maximum natoms residues contacting the pocket */
 
 	s_atm *curatom = NULL ;
-        s_atm *firstatom = NULL;
+    s_atm *firstatom = NULL;
 	int i,
                 curChar = 0, 
-		res_ids[natoms],	/* Maximum natoms residues contacting the pocket */
 		nb_res_ids = 0 ;	/* Current number of residus */
 
 	int nb_polar_atm = 0 ;
@@ -433,7 +433,7 @@ void set_atom_based_descriptors(s_atm **atoms, int natoms, s_desc *desc,s_atm *a
             desc->flex=0.0;
             desc->prop_polar_atm=0.0;
         }
-
+    my_free(res_ids);
 }
 
 /**

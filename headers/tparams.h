@@ -15,11 +15,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
 #include <assert.h>
+
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 
 #include "fparams.h"
 #include "utils.h"

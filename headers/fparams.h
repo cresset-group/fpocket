@@ -15,12 +15,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
 #include <assert.h>
+
+#ifdef _WIN32
+#include "getopt.h"
+#else
+#include <unistd.h>
 #include <getopt.h>
+#endif
 
 #include "utils.h"
 #include "memhandler.h"

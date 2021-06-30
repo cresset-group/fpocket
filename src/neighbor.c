@@ -608,8 +608,8 @@ float count_atm_prop_vert_neigh(s_atm **lig, int nlig, s_vvertice **pvert, int n
             dim = lsort->nelem;
 
     float vvalx, vvaly, vvalz;
-    int multi_nb_neigh[n_lig_molecules];
-    int multi_nb_lig_atoms[n_lig_molecules];
+    int *multi_nb_neigh = my_malloc(sizeof(int) * n_lig_molecules);
+    int *multi_nb_lig_atoms = my_malloc(sizeof(int) * n_lig_molecules);
 
     int c_lig_mol = 0;
     float max_prop = 0.0;
@@ -697,6 +697,10 @@ float count_atm_prop_vert_neigh(s_atm **lig, int nlig, s_vvertice **pvert, int n
         if (tmp > max_prop) max_prop = tmp;
     }
     free_s_vsort(lsort);
+    
+    my_free(multi_nb_neigh);
+    my_free(multi_nb_lig_atoms);
+    
     return max_prop;
 }
 

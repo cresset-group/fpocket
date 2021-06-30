@@ -250,7 +250,7 @@ s_atm** get_vert_contacted_atms(c_lst_vertices *v_lst, int *nneigh)
 {
 	int i ;
 	int nb_neigh = 0 ;
-	int atm_seen[v_lst->n_vertices * 4] ;
+	int *atm_seen = my_malloc(sizeof(int) * v_lst->n_vertices * 4) ;
 
 	s_atm **neigh = (s_atm **)my_malloc(sizeof(s_atm*)*v_lst->n_vertices * 4) ;
 	
@@ -273,5 +273,7 @@ s_atm** get_vert_contacted_atms(c_lst_vertices *v_lst, int *nneigh)
 
 	*nneigh = nb_neigh ;
 
+    my_free(atm_seen);
+    
 	return neigh ;
 }
