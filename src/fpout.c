@@ -52,7 +52,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	void
   
 */
+
+#ifdef _WIN32
+const char *path_sep = "\\";
+const char *dashP = "";
+#else
+const char *path_sep = "/";
+const char *dashP = "-p ";
+#endif
+
 extern char write_mode[10];
+
 void write_out_fpocket(c_lst_pockets *pockets, s_pdb *pdb, char *pdbname)
 {
    char pdb_code[350] = "";
@@ -74,25 +84,25 @@ void write_out_fpocket(c_lst_pockets *pockets, s_pdb *pdb, char *pdbname)
       remove_path(pdb_code);
 
       if (strlen(pdb_path) > 0)
-         sprintf(out_path, "%s/%s_out", pdb_path, pdb_code);
+         sprintf(out_path, "%s%s%s_out", pdb_path, path_sep, pdb_code);
       else
          sprintf(out_path, "%s_out", pdb_code);
 
-      sprintf(command, "mkdir -p %s", out_path);
+      sprintf(command, "mkdir %s%s", dashP, out_path);
       status = system(command);
       if (status != 0)
       {
          return;
       }
 
-      sprintf(out_path, "%s/%s", out_path, pdb_code);
+      sprintf(out_path, "%s%s%s", out_path, path_sep, pdb_code);
       sprintf(pdb_out_path, "%s_out.pdb", out_path);
 
       sprintf(mmcif_out_path, "%s_out.cif", out_path);
       
       /* Write vmd and pymol scripts */
-      sprintf(fout, "%s_out.pdb", pdb_code);
-      write_visualization(out_path, fout);
+      //sprintf(fout, "%s_out.pdb", pdb_code);
+      //write_visualization(out_path, fout);
       
       /* Writing full pdb */
       //printf("%s\n",write_mode);
@@ -117,11 +127,11 @@ void write_out_fpocket(c_lst_pockets *pockets, s_pdb *pdb, char *pdbname)
 
       /* Writing individual pockets pqr */
       if (strlen(pdb_path) > 0)
-         sprintf(out_path, "%s/%s_out", pdb_path, pdb_code);
+         sprintf(out_path, "%s%s%s_out", pdb_path, path_sep, pdb_code);
       else
          sprintf(out_path, "%s_out", pdb_code);
 
-      sprintf(out_path, "%s/pockets", out_path);
+      sprintf(out_path, "%s%spockets", out_path, path_sep);
       sprintf(command, "mkdir %s", out_path);
       status = system(command);
       /*if(status != 0) {
@@ -234,10 +244,10 @@ void write_out_fpocket_DB(c_lst_pockets *pockets, s_pdb *pdb, char *input_name) 
       remove_path(pdb_code);
       /*sprintf(out_path, "%s/%s_out", pdb_path, pdb_code) ;*/
       if (strlen(pdb_path) > 0)
-         sprintf(out_path, "%s/%s_out", pdb_path, pdb_code);
+         sprintf(out_path, "%s%s%s_out", pdb_path, path_sep, pdb_code);
       else
          sprintf(out_path, "%s_out", pdb_code);
-      sprintf(command, "mkdir -p %s", out_path);
+      sprintf(command, "mkdir %s%s", dashP, out_path);
       int status = system(command);
       // Writing full pdb
       sprintf(pdb_out_path, "%s_out.pdb", out_path);

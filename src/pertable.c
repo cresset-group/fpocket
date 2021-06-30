@@ -264,7 +264,7 @@ int is_valid_element(const char *str, int ignore_case)
 
 	/* Use temporary variable to work on the string */
 	int i ;
-	char *str_tmp = my_malloc(sizeof(char) * strlen(str)+1) ;
+	char *str_tmp = my_malloc(sizeof(char) * (strlen(str)+1)) ;
 	strcpy(str_tmp, str) ;
 
 	/* Remove spaces and case if asked*/
@@ -370,7 +370,7 @@ int is_valid_prot_element(const char *str, int ignore_case)
 	if(strlen(str) <= 0) return -1 ;
 	/* Use temporary variable to work on the string */
 	int i ;
-	char *str_tmp = my_malloc(sizeof(char) * strlen(str)+1) ;
+	char *str_tmp = my_malloc(sizeof(char) * (strlen(str)+1)) ;
 	strcpy(str_tmp, str) ;
 
 
@@ -427,7 +427,7 @@ int is_valid_nucl_acid_element(const char *str, int ignore_case)
 	if(strlen(str) <= 0) return -1 ;
 	/* Use temporary variable to work on the string */
 	int i ;
-	char *str_tmp = my_malloc(sizeof(char) * strlen(str)+1) ;
+	char *str_tmp = my_malloc(sizeof(char) * (strlen(str)+1)) ;
 	strcpy(str_tmp, str) ;
 
 

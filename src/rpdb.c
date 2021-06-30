@@ -424,7 +424,7 @@ int element_in_kept_res(char *res_name)
 void guess_element(char *aname, char *element, char *res_name)
 {
     /* Use a temporary variable for atomname, mainly to remove spaces */
-    char *tmp = my_malloc(sizeof(char) * strlen(aname) + 1);
+    char *tmp = my_malloc(sizeof(char) * (strlen(aname) + 1));
     strcpy(tmp, aname);
 
     str_trim(tmp);
