@@ -116,7 +116,6 @@ set(
 )
 
 # Set include paths for VMD
-include("conan_paths.cmake")
 set(molfileLib "${CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.lib")
 set(molfileHeaders "${CONAN_VMD_ROOT}/include")
 
