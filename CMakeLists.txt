@@ -116,8 +116,8 @@ set(
 )
 
 # Set include paths for VMD
-set(molfileLib "${CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.lib")
-set(molfileHeaders "${CONAN_VMD_ROOT}/include")
+set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.lib")
+set(molfileHeaders "$ENV{CONAN_VMD_ROOT}/include")
 
 # Include getopt for Windows
 if(WIN32)
