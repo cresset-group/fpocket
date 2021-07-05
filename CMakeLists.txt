@@ -119,7 +119,7 @@ set(
 if(WIN32)
   set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.lib")
 else()
-  set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.a")
+  set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/libvmdMolFilePlugins.a")
 endif()
 set(molfileHeaders "$ENV{CONAN_VMD_ROOT}/include")
 
