@@ -116,7 +116,11 @@ set(
 )
 
 # Set include paths for VMD
-set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.lib")
+if(WIN32)
+  set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/vmdMolFilePlugins.lib")
+else()
+  set(molfileLib "$ENV{CONAN_VMD_ROOT}/lib/libvmdMolFilePlugins.a")
+endif()
 set(molfileHeaders "$ENV{CONAN_VMD_ROOT}/include")
 
 # Include getopt for Windows
@@ -139,8 +143,6 @@ target_include_directories(qhullLib PRIVATE ${qhullSrc})
 add_library(fpocketLib STATIC ${fpocketFiles})
 target_include_directories(fpocketLib PRIVATE ${molfileHeaders} ${getoptInclude})
 target_link_libraries(fpocketLib ${molfileLib} ${getoptLib})
-
-# Make qhull ?
 
 # Make all pocket executables and link with static libraries
 add_executable(pcheck src/check.c)
