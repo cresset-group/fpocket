@@ -124,7 +124,10 @@ endif()
 set(molfileHeaders "$ENV{CONAN_VMD_ROOT}/include")
 
 add_library(molfileLib STATIC IMPORTED)
-set_target_properties(molfileLib PROPERTIES IMPORTED_LOCATION ${molfileLibPath})
+set_target_properties(molfileLib PROPERTIES
+  IMPORTED_LOCATION ${molfileLibPath}
+  IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
+)
 
 # Include getopt for Windows
 if(WIN32)
@@ -133,10 +136,12 @@ if(WIN32)
   set(getoptLib "getopt")
   set(getoptInclude "getopt_long")
   set(winsockLib "ws2_32")
+  set(libm "")
 else()
   set(getoptLib "")
   set(getoptInclude "")
   set(winsockLib "")
+  set(libm "m")
 endif()
 
 # Create library of object files
@@ -145,7 +150,7 @@ target_include_directories(qhullLib PRIVATE ${qhullSrc})
 
 add_library(fpocketLib STATIC ${fpocketFiles})
 target_include_directories(fpocketLib PRIVATE ${molfileHeaders} ${getoptInclude})
-target_link_libraries(fpocketLib molfileLib ${getoptLib})
+target_link_libraries(fpocketLib molfileLib ${getoptLib} ${libm})
 
 # Make all pocket executables and link with static libraries
 add_executable(pcheck src/check.c)
