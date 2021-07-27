@@ -23,7 +23,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include "calc.h"
 #include "pocket.h"
 #include "fparams.h"
-
+#include "psorting.h"
 
 /* -------------------------- PUBLIC STRUCTURES ------------------------------*/
 

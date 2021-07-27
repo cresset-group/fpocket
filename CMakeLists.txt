@@ -78,6 +78,8 @@ set(
         headers/mdpbase.h
         headers/mdpout.h
         headers/mdparams.h
+        headers/libmolfile_plugin.h
+        headers/vmdplugin.h
         src/psorting.c
         src/pscoring.c
         src/utils.c

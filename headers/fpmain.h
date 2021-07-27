@@ -29,6 +29,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "memhandler.h"
 
+#include "libmolfile_plugin.h"
 #include "molfile_plugin.h"
 
 /* ------------------------------PROTOTYPES-----------------------------------*/
