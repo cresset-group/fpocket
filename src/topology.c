@@ -94,7 +94,8 @@ void read_topology(char *topology_path, s_pdb *pdb){
             molfile_parm7plugin_init();
             molfile_parm7plugin_register(NULL, register_cb);
         }
-        int natoms,i;
+        int natoms = MOLFILE_NUMATOMS_UNKNOWN;
+        int i;
         molfile_atom_t *atoms;
         printf("Reading topology\n");
         void *h_in;

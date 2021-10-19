@@ -57,7 +57,7 @@ s_pdb *open_mmcif(char *fpath, const char *ligan, const int keep_lig, int model_
     molfile_pdbxplugin_init();
     molfile_pdbxplugin_register(NULL, register_cb);
     char *filetype = "cif";
-    int inatoms; /*number of atoms in the  file determined by molfile api*/
+    int inatoms = MOLFILE_NUMATOMS_UNKNOWN; /*number of atoms in the  file determined by molfile api*/
     //printf("%s | %s |%d", fpath, filetype, inatoms);
     //printf("\n");
     void *h_in;
@@ -271,7 +271,7 @@ void read_mmcif(s_pdb *pdb, const char *ligan, const int keep_lig, int model_num
     molfile_pdbxplugin_init();
     molfile_pdbxplugin_register(NULL, register_cb);
     char *filetype = "cif";
-    int inatoms; /*number of atoms in the  file determined by molfile api*/
+    int inatoms = MOLFILE_NUMATOMS_UNKNOWN; /*number of atoms in the  file determined by molfile api*/
 
     void *h_in;
     molfile_timestep_t ts_in;
