@@ -104,10 +104,10 @@ void mdpocket_detect(s_mdparams *par) {
         molfile_crdplugin_init();
         molfile_crdplugin_register(NULL, register_cb);
     }
-    if (!strncmp(par->traj_format, "dtr", 3)) {
+    /*if (!strncmp(par->traj_format, "dtr", 3)) {
         molfile_dtrplugin_init();
         molfile_dtrplugin_register(NULL, register_cb);
-    }
+    }*/
     if (!strncmp(par->traj_format, "xtc", 3) || !strncmp(par->traj_format, "trr", 3)) {
         molfile_gromacsplugin_init();
         molfile_gromacsplugin_register(NULL, register_cb);
@@ -194,7 +194,7 @@ void mdpocket_detect(s_mdparams *par) {
                 //                                rpdb_print(topology_pdb);
                 //                print_number_of_objects_in_memory();
                 void *h_in;
-                int inatoms;
+                int inatoms = MOLFILE_NUMATOMS_UNKNOWN;
                 molfile_timestep_t ts_in;
                 int rc;
                 if (!par->traj_format) {
@@ -395,10 +395,10 @@ void mdpocket_characterize(s_mdparams *par) {
         molfile_crdplugin_init();
         molfile_crdplugin_register(NULL, register_cb);
     }
-    if (!strncmp(par->traj_format, "dtr", 3)) {
+    /*if (!strncmp(par->traj_format, "dtr", 3)) {
         molfile_dtrplugin_init();
         molfile_dtrplugin_register(NULL, register_cb);
-    }
+    }*/
     if (!strncmp(par->traj_format, "xtc", 3) || !strncmp(par->traj_format, "trr", 3)) {
         molfile_gromacsplugin_init();
         molfile_gromacsplugin_register(NULL, register_cb);
@@ -492,7 +492,7 @@ void mdpocket_characterize(s_mdparams *par) {
 
             //print_number_of_objects_in_memory();
             void *h_in;
-            int inatoms = 0;
+            int inatoms = MOLFILE_NUMATOMS_UNKNOWN;
             molfile_timestep_t ts_in;
             int rc;
             if (!par->traj_format) {
