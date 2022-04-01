@@ -79,13 +79,18 @@ s_fparams *init_def_fparams(void)
     par->npdb = 0;
     par->model_number = 0; /**by default consider we do not have an NMR structure*/
     par->pdb_lst = NULL;
+    par->xlig_chain_code[0] = 0;
+    par->xlig_resname[0] = 0;
     par->flag_do_asa_and_volume_calculations = 1;
     par->db_run = M_DB_RUN;
     par->min_as_density = M_MIN_AS_DENSITY;
     par->topology_path[0] = 0;
+    par->custom_ligand[0] = 0;
     par->fpocket_running = 0;
     par->xlig_resnumber = -1;
     par->chain_is_kept = 0;
+    memset(par->chain_delete, 0, M_MAX_CHAINS_DELETE);
+    memset(par->chain_as_ligand, 0, M_MAX_CHAINS_DELETE);
     par->write_par[0] = 'd';
     return par;
 }
